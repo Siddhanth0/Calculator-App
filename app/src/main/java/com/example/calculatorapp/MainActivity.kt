@@ -52,7 +52,7 @@ fun Calculator(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(MaterialTheme.colorScheme.background)
             .padding(16.dp)
     ) {
         Column(
@@ -62,15 +62,21 @@ fun Calculator(
             verticalArrangement = Arrangement.spacedBy(buttonSpacing),
         ) {
             Text(
-                text = state.number1 + (state.operation ?: "") + state.number2,
-                textAlign = TextAlign.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 32.dp),
+                text = state.expression,
+                fontSize = 60.sp,
                 fontWeight = FontWeight.Light,
-                fontSize = 32.sp,
-                color = MaterialTheme.colorScheme.primary,
-                maxLines = 2
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+
+            Text(
+                text = state.result,
+                fontSize = 60.sp,
+                fontWeight = FontWeight.Light,
+                textAlign = TextAlign.End,
+                modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
+                color = MaterialTheme.colorScheme.primary
             )
             Row(
                 modifier = Modifier
