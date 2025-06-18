@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -27,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.calculatorapp.ui.theme.CalculatorAppTheme
+import com.example.calculatorapp.ui.theme.MediumGray
+import com.example.calculatorapp.ui.theme.Orange
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,16 +47,19 @@ class MainActivity : ComponentActivity() {
 fun Calculator(
     state: CalculatorState,
     viewModel: CalculatorViewModel,
-    modifier: Modifier = Modifier,
     buttonSpacing: Dp = 8.dp,
 ) {
-    Box(modifier) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(16.dp)
+    ) {
         Column(
-            modifier
-                .fillMaxSize()
-                .background(Color.Black)
+            modifier = Modifier
+                .fillMaxWidth()
                 .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(buttonSpacing)
+            verticalArrangement = Arrangement.spacedBy(buttonSpacing),
         ) {
             Text(
                 text = state.number1 + (state.operation ?: "") + state.number2,
@@ -64,8 +68,8 @@ fun Calculator(
                     .fillMaxWidth()
                     .padding(vertical = 32.dp),
                 fontWeight = FontWeight.Light,
-                fontSize = 80.sp,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                fontSize = 32.sp,
+                color = MaterialTheme.colorScheme.primary,
                 maxLines = 2
             )
             Row(
@@ -75,7 +79,7 @@ fun Calculator(
             ) {
                 CalculatorButton(
                     symbol = "AC",
-                    color = LightGray,
+                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(2f)
                         .weight(2f)
@@ -84,7 +88,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "Del",
-                    color = LightGray,
+                    color = MediumGray,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
@@ -93,7 +97,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "/",
-                    color = Color.Yellow,
+                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
@@ -135,7 +139,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "x",
-                    color = Color.Yellow,
+                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
@@ -177,7 +181,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "-",
-                    color = Color.Yellow,
+                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
@@ -219,7 +223,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "+",
-                    color = Color.Yellow,
+                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
@@ -252,7 +256,7 @@ fun Calculator(
                 }
                 CalculatorButton(
                     symbol = "=",
-                    color = Color.Yellow,
+                    color = Orange,
                     modifier = Modifier
                         .aspectRatio(1f)
                         .weight(1f)
