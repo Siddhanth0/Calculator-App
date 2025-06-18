@@ -1,6 +1,7 @@
 package com.example.calculatorapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,9 +17,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -37,6 +40,16 @@ class MainActivity : ComponentActivity() {
             CalculatorAppTheme {
                 val viewModel = viewModel<CalculatorViewModel>()
                 val state = viewModel.state
+                val context = LocalContext.current
+                LaunchedEffect(key1 = true) {
+                    viewModel.event.collect { event ->
+                        when (event) {
+                            is UIEvent.ShowToast -> {
+                                Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
                 Calculator(state, viewModel)
             }
         }
@@ -63,7 +76,8 @@ fun Calculator(
         ) {
             Text(
                 text = state.expression,
-                fontSize = 60.sp,
+                fontSize = 50.sp,
+                lineHeight = 52.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.End,
                 modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
@@ -72,10 +86,11 @@ fun Calculator(
 
             Text(
                 text = state.result,
-                fontSize = 60.sp,
+                fontSize = 50.sp,
+                lineHeight = 52.sp,
                 fontWeight = FontWeight.Light,
                 textAlign = TextAlign.End,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 12.dp, bottom = 32.dp),
                 color = MaterialTheme.colorScheme.primary
             )
             Row(
